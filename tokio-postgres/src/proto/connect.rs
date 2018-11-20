@@ -101,15 +101,16 @@ impl PollConnect for Connect {
                 tls: state.tls,
                 timeout,
             }),
-            #[cfg(unix)]
+//             #[cfg(unix)]
             Host::Unix(mut path) => {
-                path.push(format!(".s.PGSQL.{}", port));
-                transition!(ConnectingUnix {
-                    future: UnixStream::connect(path),
-                    timeout: timeout.map(|t| Delay::new(Instant::now() + t)),
-                    params: state.params,
-                    tls: state.tls,
-                })
+                unimplemented!()
+//                 path.push(format!(".s.PGSQL.{}", port));
+//                 transition!(ConnectingUnix {
+//                     future: UnixStream::connect(path),
+//                     timeout: timeout.map(|t| Delay::new(Instant::now() + t)),
+//                     params: state.params,
+//                     tls: state.tls,
+//                 })
             },
             #[cfg(not(unix))]
             Host::Unix(_) => {
